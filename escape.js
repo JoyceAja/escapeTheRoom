@@ -137,7 +137,7 @@ RoomObject.prototype.interact = function (action) {
         return new Result(this.description)
     } else if (this.hasItems()) {
         return new Result("You " + action + " the " + this.name, this.getItems()) 
-    } else if (this.name === "Door") {
+    } else if (this.name === "door") {
         return new Result(ESCAPE_MESSAGE)
     } else {
         return new Result("didn't find anything useful")         
@@ -358,12 +358,6 @@ var door = new RoomObject('door', 'unto freedom', [],['keys'],'open')
 //var arr = [letter, Box, clue2,stationaryHeater,door]
 
 // Create an array of Room objects
-// var obj;
-// var objArr = []
-// for(var i =0; i< arr.length; i++){
-//     obj = new Room(arr[i])
-//     objArr.push(obj)
-// }
 var Inventory = new Room([Box, clue2,stationaryHeater,door])
 
 // Create a new Game
