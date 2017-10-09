@@ -273,12 +273,12 @@ Game.prototype.getNextRoom = function(){
  * @return {string}
  */
 function getObjectNames(objects) {
-    //var objectNames = objects.map(function (object) {
-        var objectNames = []
-        for(var item in objects){
-            objectNames.push(object.names)
-        //return objectNames 
-    }
+    var objectNames = objects.map(function (object) {
+        // var objectNames = []
+        // for(var item in objects){
+        //     objectNames.push(object.names)
+        return objectNames 
+    })
     return objectNames.join("\n")
 }
 
@@ -296,7 +296,7 @@ function view(message) {
         "2. use [item] [object] \n" 
 
     var objects =
-        "--You See-- \n" + objArr.map(getObjectNames(val)) + "\n";
+        "--You See-- \n" + getObjectNames(room.objects) + "\n";
 
     var items =
         "--Your Items-- \n" + player.items.join("\n") + "\n";
@@ -346,38 +346,40 @@ rl.on('line', function (input) {
 
 // Create an array of RoomObject objects
 var letter = new RoomObject ('clue', 'what is the easiest conservative 6 number code',
-                             ['card'], ['card'], 'read')
+                             ['card'], [], 'read')
 
 var Box = new RoomObject('box', 'black',
-                        ['codeLock'],['code'], ' 0 1 2 3 4 5' )
+                        ['codeLock'],['code'], 'input' )
 
 var clue2 = new RoomObject ( 'clue2', 'answer the question why is water wet', 
-                         ['miscellaneous items'],['card 2'], 'coldness from water evaporation')
+                         ['miscellaneous'],['card2'], 'answer')
 
 var stationaryHeater  = new RoomObject('stationaryHeater','what uses water and helps with the cold', 
                                       ['heater'], ['clue2'], ['take'])
 
 var door = new RoomObject('door', 'unto freedom', ['keys'],['keys'],'open')
 
-var arr = [letter, Box, clue2,stationaryHeater,door]
+//var arr = [letter, Box, clue2,stationaryHeater,door]
 
 // Create an array of Room objects
-var obj;
-var objArr = []
-for(var i =0; i< arr.length; i++){
-    obj = new Room(arr[i])
-    objArr.push(obj)
-}
+// var obj;
+// var objArr = []
+// for(var i =0; i< arr.length; i++){
+//     obj = new Room(arr[i])
+//     objArr.push(obj)
+// }
+var Inventory = new Room([letter, Box, clue2,stationaryHeater,door])
 
 // Create a new Game
-var gameObj; 
-var gameArr = []
-for(var i = 0; i<objArr.length; i++){
-    gameObj = new Game(objArr[i])
-    gameArr.push(gameObj)
-}
+// var gameObj; 
+// var gameArr = []
+// for(var i = 0; i<objArr.length; i++){
+//     gameObj = new Game(objArr[i])
+//     gameArr.push(gameObj)
+// }
+var newGame = new Game([Inventory])
 // Create a new Player
-var player = new Player(Room)
+var player = new Player(newGame.getCurrentRoom())
 
 
 clear()
