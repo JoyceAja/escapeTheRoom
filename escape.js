@@ -274,9 +274,6 @@ Game.prototype.getNextRoom = function(){
  */
 function getObjectNames(objects) {
     var objectNames = objects.map(function (object) {
-        // var objectNames = []
-        // for(var item in objects){
-        //     objectNames.push(object.names)
         return objectNames 
     })
     return objectNames.join("\n")
@@ -345,19 +342,18 @@ rl.on('line', function (input) {
 
 
 // Create an array of RoomObject objects
-var letter = new RoomObject ('clue', 'what is the easiest conservative 6 number code',
-                             ['card'], [], 'read')
+//var letter = new RoomObject ('clue', 'open the note',['code'], [], 'read')
 
 var Box = new RoomObject('box', 'black',
-                        ['codeLock'],['code'], 'input' )
+                        ['note'],[/*'code'*/], 'open' )
 
 var clue2 = new RoomObject ( 'clue2', 'answer the question why is water wet', 
-                         ['miscellaneous'],['card2'], 'answer')
+                         ['miscellaneous'],['note'], 'answer')
 
 var stationaryHeater  = new RoomObject('stationaryHeater','what uses water and helps with the cold', 
-                                      ['heater'], ['clue2'], ['take'])
+                                      ['keys'], ['miscellaneous'], ['take'])
 
-var door = new RoomObject('door', 'unto freedom', ['keys'],['keys'],'open')
+var door = new RoomObject('door', 'unto freedom', [],['keys'],'open')
 
 //var arr = [letter, Box, clue2,stationaryHeater,door]
 
@@ -368,15 +364,10 @@ var door = new RoomObject('door', 'unto freedom', ['keys'],['keys'],'open')
 //     obj = new Room(arr[i])
 //     objArr.push(obj)
 // }
-var Inventory = new Room([letter, Box, clue2,stationaryHeater,door])
+var Inventory = new Room([Box, clue2,stationaryHeater,door])
 
 // Create a new Game
-// var gameObj; 
-// var gameArr = []
-// for(var i = 0; i<objArr.length; i++){
-//     gameObj = new Game(objArr[i])
-//     gameArr.push(gameObj)
-// }
+
 var newGame = new Game([Inventory])
 // Create a new Player
 var player = new Player(newGame.getCurrentRoom())
